@@ -4,7 +4,8 @@ class Api::User::V1::BlogsController < Api::User::V1::BaseController
 
   def index
     begin
-      blogs = service.all
+      req = ::User::BlogRequest.new(blog_params)
+      blogs = service.search(req)
       render(json: blogs, each_serializer: BlogsSerializer)
     rescue Exception => e
       failur(e.message)

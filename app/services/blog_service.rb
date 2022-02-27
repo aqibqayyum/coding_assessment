@@ -38,5 +38,8 @@ class BlogService < BaseService
   end
 
   def search(req)
+    blogs = all
+    blogs = all.where("title iLIKE ?", "%#{req.title}%") if req.title.present?
+    return blogs
   end
 end
